@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Analysis</title>
+    <style>
+        /* CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+overflow: hidden; /* Ensure background overflow is hidden */
+            position: relative
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color:#007bff ;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+ #quizPage {
+   
+            padding: 20px;
+ background-color: #F6EFE5;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #canvasBackground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure canvas is behind other content */
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Introduction Page -->
+        <canvas id="canvasBackground"></canvas> 
+        <div id="introPage">
+            <div style="position: relative; width: 100%; height: 0; padding-top: 100.0000%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https://www.canva.com/design/DAGCFjkl5QU/laVy8xns4f8x7DFpyFQODg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+            </div>
+            <a href="https://www.canva.com/design/DAGCFjkl5QU/laVy8xns4f8x7DFpyFQODg/view?utm_content=DAGCFjkl5QU&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">View in Canva</a>
+            <button onclick="startQuiz()">Start Analysis</button>
+<p style="color: red; text-align: center;">This website is for informational purposes only. It is not a substitute for professional medical advice. Consult a qualified healthcare provider for personalized advice.</p>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quizPage" style="display: none;">
+            <h2>Question <span id="questionNumber">1</span></h2>
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <button onclick="nextQuestion()">Next</button>
+<p style="color: red; text-align: center;">This website is for informational purposes only. It is not a substitute for professional medical advice. Consult a qualified healthcare provider for personalized advice.</p>
+        </div>
+
+<!-- Suggestions Page -->
+<div id="suggestionPage" style="display: none;">
+ <h1 style="color: red; font-size: 36px; text-align: center;">Here is your overall analysis</h1>    <ul id="suggestionList"></ul>
+<div style="position: relative; width: 100%; height: 0; padding-top: 100.0000%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGCLC4TCDw&#x2F;Egjx3kZnSQngBdDWQJDINg&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGCLC4TCDw&#x2F;Egjx3kZnSQngBdDWQJDINg&#x2F;view?utm_content=DAGCLC4TCDw&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a> 
+
+        <p style="color: red; text-align: center;">This website is for informational purposes only. It is not a substitute for professional medical advice. Consult a qualified healthcare provider for personalized advice.</p>
+<button onclick="openNextPage()">Click Here</button>
+</div>
+<!-- Final Page -->
+<div id="finalPage" style="display: none;">
+    <h1 style="text-align: center;">Wellness Corner</h1>
+    <div class="container">
+        <!-- Content for the final page goes here -->
+<div style="position: relative; width: 100%; height: 0; padding-top: 62.5000%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;" src="https://www.canva.com/design/DAGC2hNOBCY/KDDMLmY3Uq0M0gMJpRAPFQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+                </div>
+                <a href="https://www.canva.com/design/DAGC2hNOBCY/KDDMLmY3Uq0M0gMJpRAPFQ/view?utm_content=DAGC2hNOBCY&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener"></a>
+            </div>
+            <div class="container">
+<div style="position: relative; width: 100%; height: 0; padding-top: 66.6667%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC-F50SBM&#x2F;zvZ9yZw3V-08RKOkC4k1yg&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC-F50SBM&#x2F;zvZ9yZw3V-08RKOkC4k1yg&#x2F;view?utm_content=DAGC-F50SBM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a> 
+            </div>
+<div class="container">
+<div style="position: relative; width: 100%; height: 0; padding-top: 62.5000%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC8Nzm6OE&#x2F;c_NegDU_slYqHQBHx_8Kbw&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC8Nzm6OE&#x2F;c_NegDU_slYqHQBHx_8Kbw&#x2F;view?utm_content=DAGC8Nzm6OE&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a> 
+</div>
+<div class="container">
+<div style="position: relative; width: 100%; height: 0; padding-top: 62.5000%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC8SDHjg4&#x2F;CAQSAG1BSJFdn0nJxnvTAw&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGC8SDHjg4&#x2F;CAQSAG1BSJFdn0nJxnvTAw&#x2F;view?utm_content=DAGC8SDHjg4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a> 
+</div>
+
+
+        </div>
+    </div>
+
+       
+
+
+    <script>
+        // JavaScript for quiz functionality
+        const questions = [
+            { 
+                question: "How often do you feel overwhelmed?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Feeling overwhelmed occasionally is normal, but if it becomes frequent, it might be beneficial to seek support from a therapist.",
+                    "Sometimes": "Frequent feelings of overwhelm can be distressing. Consider practicing stress management techniques like deep breathing or mindfulness.",
+                    "Often": "Frequent overwhelm may indicate underlying stress or anxiety. It's essential to prioritize self-care and seek professional help if needed.",
+                    "Always": "Constant feelings of overwhelm can significantly impact daily functioning and well-being. Seeking therapy or counseling can provide valuable support."
+                },
+                answer: "" // Add the correct answer here if needed
+            },
+            { 
+                question: "How often do you experience mood swings?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional mood swings are common, but if they become frequent, it's essential to monitor them and seek support if necessary.",
+                    "Sometimes": "Frequent mood swings can be challenging to manage alone. Consider seeking support from a mental health professional.",
+                    "Often": "Frequent mood swings may indicate an underlying mood disorder. It's crucial to seek professional help for proper evaluation and treatment.",
+                    "Always": "Constant mood swings can significantly impact daily life and relationships. It's crucial to seek professional help to manage and treat them effectively."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you experience difficulty concentrating?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional difficulty concentrating is normal, but if it interferes with daily tasks, it might be helpful to practice focus-enhancing techniques.",
+                    "Sometimes": "Frequent difficulty concentrating can be frustrating. Consider incorporating mindfulness or meditation into your routine to improve focus.",
+                    "Often": "Frequent difficulty concentrating may indicate underlying issues such as anxiety or attention disorders. It's essential to seek professional evaluation and support.",
+                    "Always": "Constant difficulty concentrating can significantly impact work, school, and daily life. Seeking professional help is crucial for proper management."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you feel irritable or easily angered?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional irritability is normal, but if it becomes frequent or interferes with relationships, it's essential to address it.",
+                    "Sometimes": "Frequent irritability can strain relationships and affect well-being. Consider seeking support from a therapist to learn coping strategies.",
+                    "Often": "Frequent irritability may indicate underlying issues such as stress or mood disorders. It's crucial to seek professional help for proper evaluation and management.",
+                    "Always": "Constant irritability can significantly impact relationships and overall quality of life. Seeking therapy or counseling is important for developing healthy coping mechanisms."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you experience changes in appetite or weight?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional changes in appetite or weight are normal, but if they become frequent or severe, it's essential to monitor them and seek support if needed.",
+                    "Sometimes": "Frequent changes in appetite or weight can indicate underlying issues such as stress or mood disorders. It's important to seek professional evaluation and support.",
+                    "Often": "Frequent changes in appetite or weight may indicate disordered eating or other medical conditions. It's crucial to seek professional help for proper evaluation and management.",
+                    "Always": "Constant changes in appetite or weight can have serious health consequences. Seeking immediate professional help is essential for proper evaluation and treatment."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you experience difficulty sleeping?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional difficulty sleeping is normal, but if it becomes frequent or affects daily functioning, it's essential to practice good sleep hygiene and seek support if needed.",
+                    "Sometimes": "Frequent difficulty sleeping can significantly impact overall well-being. Consider incorporating relaxation techniques or seeking support from a sleep specialist.",
+                    "Often": "Frequent difficulty sleeping may indicate underlying issues such as insomnia or anxiety. It's crucial to seek professional help for proper evaluation and management.",
+                    "Always": "Constant difficulty sleeping can have serious consequences for physical and mental health. Seeking professional help is crucial for developing effective strategies to improve sleep."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you feel hopeless or worthless?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional feelings of hopelessness or worthlessness are normal, but if they become frequent or persistent, it's important to seek support from a therapist.",
+                    "Sometimes": "Frequent feelings of hopelessness or worthlessness can be signs of depression or other mental health issues. It's crucial to seek professional help for proper evaluation and treatment.",
+                    "Often": "Frequent feelings of hopelessness or worthlessness may indicate depression or another mood disorder. It's essential to seek professional help for proper evaluation and management.",
+                    "Always": "Constant feelings of hopelessness or worthlessness are serious and require immediate attention. Seeking therapy or counseling is crucial for developing coping strategies and receiving support."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you isolate yourself from others?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasionally choosing to spend time alone is normal, but if isolation becomes frequent or prolonged, it's essential to reach out to friends or family for support.",
+                    "Sometimes": "Frequent isolation can contribute to feelings of loneliness and negatively impact mental well-being. Consider reaching out to loved ones or seeking support from a therapist.",
+                    "Often": "Frequent isolation may indicate underlying issues such as depression or social anxiety. It's crucial to seek professional help for proper evaluation and support.",
+                    "Always": "Constant isolation can worsen mental health and increase the risk of developing depression or other mental health issues. Seeking therapy or counseling is important for developing social connections and support networks."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you experience intrusive thoughts or worries?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasional intrusive thoughts or worries are normal, but if they become frequent or distressing, it's essential to practice techniques like mindfulness or seek support from a therapist.",
+                    "Sometimes": "Frequent intrusive thoughts or worries can be distressing and interfere with daily life. Consider seeking support from a therapist to learn coping strategies.",
+                    "Often": "Frequent intrusive thoughts or worries may indicate an anxiety disorder or other mental health issues. It's important to seek professional help for proper evaluation and treatment.",
+                    "Always": "Constant intrusive thoughts or worries can significantly impact mental well-being and quality of life. Seeking therapy or counseling is crucial for learning to manage and reduce these symptoms."
+                },
+                answer: ""
+            },
+            { 
+                question: "How often do you engage in activities you enjoy?",
+                options: ["Rarely", "Sometimes", "Often", "Always"],
+                suggestions: {
+                    "Rarely": "Occasionally engaging in activities you enjoy is important for mental well-being, but if it becomes infrequent or nonexistent, it's essential to prioritize self-care and make time for hobbies.",
+                    "Sometimes": "Frequent engagement in enjoyable activities is beneficial for mental health, but if it becomes rare, it's important to make self-care a priority and seek support if needed.",
+                    "Often": "Regularly engaging in activities you enjoy is essential for maintaining mental well-being. Keep up the good work and continue prioritizing self-care.",
+                    "Always": "Consistently engaging in activities you enjoy is a positive sign for mental health and overall well-being. Keep up the good work and continue prioritizing self-care."
+                },
+                answer: ""
+            },
+
+            
+        ];
+
+        let currentQuestion = 0;
+        const introPage = document.getElementById("introPage");
+        const quizPage = document.getElementById("quizPage");
+        const suggestionPage = document.getElementById("suggestionPage");
+        const questionNumberElem = document.getElementById("questionNumber");
+        const questionElem = document.getElementById("question");
+        const optionsElem = document.getElementById("options");
+
+        function startQuiz() {
+            introPage.style.display = "none";
+            quizPage.style.display = "block";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            questionNumberElem.textContent = currentQuestion + 1;
+            questionElem.textContent = question.question;
+            optionsElem.innerHTML = "";
+            question.options.forEach((option, index) => {
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "option";
+                input.value = index;
+                const label = document.createElement("label");
+                label.textContent = option;
+                optionsElem.appendChild(input);
+                optionsElem.appendChild(label);
+            });
+        }
+
+        function nextQuestion() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (selectedOption) {
+                questions[currentQuestion].answer = questions[currentQuestion].options[selectedOption.value];
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showSuggestion();
+                }
+            } else {
+                alert("Please select an option.");
+            }
+        }
+
+        function showSuggestion() {
+            quizPage.style.display = "none";
+            suggestionPage.style.display = "block";
+            const suggestionList = document.getElementById("suggestionList");
+
+            // Loop through all answered questions and add suggestions as list items
+            questions.forEach((question) => {
+                if (question.answer) {
+                    const suggestion = document.createElement("li");
+                    suggestion.textContent = question.suggestions[question.answer];
+                    suggestionList.appendChild(suggestion);
+                }
+            });
+        }
+function openNextPage() {
+    // Code to open the next page goes here
+    // For demonstration purposes, let's just redirect to a new URL
+    window.location.href = "next_page.html";
+}
+function openNextPage() {
+const finalPage = document.getElementById("finalPage");
+
+    suggestionPage.style.display = "none";
+    finalPage.style.display = "block";
+}
+
+
+    </script>
+</body>
+</html>
